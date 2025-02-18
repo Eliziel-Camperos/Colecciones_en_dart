@@ -18,8 +18,8 @@ class Tienda {
     required this.horario,
   });
 
-  // Función para capturar datos desde la interfaz (simulada)
-  void capturarDatos() {
+  // Función para capturar datos de la tienda desde la interfaz (simulada)
+  void capturarDatosTienda() {
     print("Ingrese el ID de la tienda:");
     id = int.parse(stdin.readLineSync()!);
 
@@ -40,7 +40,7 @@ class Tienda {
   }
 
   // Función para mostrar datos de la tienda
-  void mostrarDatos() {
+  void mostrarDatosTienda() {
     print("\nDatos de la Tienda:");
     print("ID: $id");
     print("Nombre: $nombre");
@@ -71,8 +71,8 @@ class Devoluciones {
     required this.estado,
   });
 
-  // Función para capturar datos desde la interfaz (simulada)
-  void capturarDatos() {
+  // Función para capturar datos de la devolución desde la interfaz (simulada)
+  void capturarDatosDevolucion() {
     print("Ingrese el ID de la devolución:");
     idDevolucion = int.parse(stdin.readLineSync()!);
 
@@ -96,7 +96,7 @@ class Devoluciones {
   }
 
   // Función para mostrar datos de la devolución
-  void mostrarDatos() {
+  void mostrarDatosDevolucion() {
     print("\nDatos de la Devolución:");
     print("ID Devolución: $idDevolucion");
     print("ID Cómic: $idComic");
@@ -126,34 +126,33 @@ class PedroPe extends Tienda {
           horario: horario,
         );
 
-  // Función para mostrar datos de PedroPe
-  void mostrarDatosPedroPe() {
-    print("\nDatos de PedroPe (Tienda):");
-    mostrarDatos(); // Llama a la función heredada de Tienda
+  // Función para mostrar datos de la tienda (heredada)
+  void mostrarDatosTiendaPedroPe() {
+    print("\nDatos de la Tienda (PedroPe):");
+    mostrarDatosTienda(); // Llama a la función heredada de Tienda
   }
 
-  // Función para mostrar datos de devoluciones
-  void mostrarDevoluciones(Devoluciones devolucion) {
-    print("\nDatos de Devoluciones asociadas a PedroPe:");
-    devolucion.mostrarDatos();
+  // Función para mostrar datos de una devolución
+  void mostrarDatosDevolucionPedroPe(Devoluciones devolucion) {
+    print("\nDatos de la Devolución (PedroPe):");
+    devolucion.mostrarDatosDevolucion(); // Llama a la función de Devoluciones
   }
 }
 
 void main() {
-  // Crear una instancia de PedroPe
-  PedroPe pedroPe = PedroPe(
-    id: 1,
-    nombre: "Comic Store",
-    direccion: "Calle Principal 123",
-    telefono: "555-1234",
-    correo: "info@comicstore.com",
-    horario: "9:00 AM - 6:00 PM",
+  // Capturar datos de la tienda desde la interfaz (simulada)
+  print("Capturando datos de la tienda:");
+  Tienda tienda = Tienda(
+    id: 0,
+    nombre: "",
+    direccion: "",
+    telefono: "",
+    correo: "",
+    horario: "",
   );
+  tienda.capturarDatosTienda();
 
-  // Mostrar datos de PedroPe
-  pedroPe.mostrarDatosPedroPe();
-
-  // Capturar datos de una devolución
+  // Capturar datos de una devolución desde la interfaz (simulada)
   print("\nCapturando datos de una devolución:");
   Devoluciones devolucion = Devoluciones(
     idDevolucion: 0,
@@ -164,8 +163,21 @@ void main() {
     cantidad: 0,
     estado: "",
   );
-  devolucion.capturarDatos();
+  devolucion.capturarDatosDevolucion();
 
-  // Mostrar datos de la devolución
-  pedroPe.mostrarDevoluciones(devolucion);
+  // Crear una instancia de PedroPe con los datos capturados de la tienda
+  PedroPe pedroPe = PedroPe(
+    id: tienda.id,
+    nombre: tienda.nombre,
+    direccion: tienda.direccion,
+    telefono: tienda.telefono,
+    correo: tienda.correo,
+    horario: tienda.horario,
+  );
+
+  // Mostrar datos de la tienda usando PedroPe
+  pedroPe.mostrarDatosTiendaPedroPe();
+
+  // Mostrar datos de la devolución usando PedroPe
+  pedroPe.mostrarDatosDevolucionPedroPe(devolucion);
 }
